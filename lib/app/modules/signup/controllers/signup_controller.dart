@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/services/auth.dart';
 
-class SigninController extends GetxController {
+class SignupController extends GetxController {
   final AuthService authService = Get.find();
 
   var formKey = GlobalKey<FormState>();
@@ -14,6 +14,7 @@ class SigninController extends GetxController {
   final passwdController = TextEditingController();
   final loading = false.obs;
 
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -29,17 +30,19 @@ class SigninController extends GetxController {
     super.onClose();
   }
 
-  Future signIn() async {
+  Future signUp() async {
     final email = emailController.text;
     final password = passwdController.text;
     try {
       loading.value = true;
-      await authService.signIn(email: email, password: password);
+      await authService.signUp(email: email, password: password);
+      Get.offAllNamed('/home');
+      
     } on AppwriteException catch (e) {
-      Get.snackbar('Sign in failed', e.message ?? 'Unknown error');
+      Get.snackbar('Sign up failed', e.message ?? 'Unknown error');
     } catch (e) {
-      log('Authentication failed: ${e.toString()}');
-      Get.snackbar('Sign in failed', 'Unknown error');
+      log('Registration failed: ${e.toString()}');
+      Get.snackbar('Sign up failed', 'Unknown error');
     } finally {
       loading.value = false;
     }

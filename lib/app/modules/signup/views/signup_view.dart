@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 
 import '../../../widgets/button.dart';
 import '../../../widgets/textfield.dart';
-import '../controllers/signin_controller.dart';
+import '../controllers/signup_controller.dart';
 
-class SigninView extends GetView<SigninController> {
-  const SigninView({super.key});
+class SignupView extends GetView<SignupController> {
+  const SignupView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class SigninView extends GetView<SigninController> {
                   Padding(
                     padding: const EdgeInsets.only(top: 32, bottom: 24),
                     child: Text(
-                      'Sign In',
+                      'Sign Up',
                       style: TextStyle(
                         fontSize: 32,
                         color: Theme.of(context).colorScheme.onBackground,
@@ -71,13 +71,13 @@ class SigninView extends GetView<SigninController> {
                     constraints: const BoxConstraints(maxWidth: 360),
                     child: Obx(
                       () => APButton(
-                        text: 'Sign In',
+                        text: 'Sign Up',
                         onTap: controller.loading.value
                             ? null
                             : () {
                                 if (controller.formKey.currentState!
                                     .validate()) {
-                                  controller.signIn();
+                                  controller.signUp();
                                 }
                               },
                       ),
@@ -90,17 +90,17 @@ class SigninView extends GetView<SigninController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account? ",
+                          'Already have an account? ',
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onBackground,
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => Get.toNamed('/signup'),
+                          onTap: () => Get.toNamed('/signin'),
                           child: MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: Text(
-                              'Sign Up',
+                              'Sign In',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color:
