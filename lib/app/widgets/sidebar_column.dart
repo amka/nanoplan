@@ -93,6 +93,30 @@ class SidebarColumn extends StatelessWidget {
               authService.user.value?.email ?? 'email',
             ).showOrNull(data.isOpen),
             leading: const Icon(Icons.person_pin),
+            trailing: MenuAnchor(
+              menuChildren: [
+                MenuItemButton(
+                  child: const Text('Sign Out'),
+                  onPressed: () async {
+                    await authService.signOut();
+                    Get.offAllNamed('/');
+                  },
+                ),
+              ],
+              builder: (context, controller, Widget? child) {
+                return IconButton(
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    onPressed: () {
+                      if (controller.isOpen) {
+                        controller.close();
+                      } else {
+                        controller.open();
+                      }
+                    },
+                    icon: const Icon(TablerIcons.dots_vertical));
+              },
+            ),
           ),
         ),
       ),

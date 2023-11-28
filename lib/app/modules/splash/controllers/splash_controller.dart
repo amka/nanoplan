@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 
 import '../../../data/services/auth.dart';
@@ -18,9 +17,9 @@ class SplashController extends GetxController {
     super.onReady();
 
     log('AuthStatus: ${authService.status.value}');
-    authService.loadUser().then((User? user) {
-      user != null ? Get.offAllNamed('/home') : Get.offAllNamed('/signin');
-    });
+    authService.status.value == AuthStatus.authenticated
+        ? Get.offAllNamed('/home')
+        : Get.offAllNamed('/signin');
   }
 
   @override

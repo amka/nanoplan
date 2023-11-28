@@ -74,10 +74,11 @@ class SigninView extends GetView<SigninController> {
                         text: 'Sign In',
                         onTap: controller.loading.value
                             ? null
-                            : () {
+                            : () async {
                                 if (controller.formKey.currentState!
                                     .validate()) {
-                                  controller.signIn();
+                                  await controller.signIn();
+                                  Get.offAllNamed('/home');
                                 }
                               },
                       ),

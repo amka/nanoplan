@@ -14,7 +14,20 @@ void main() async {
   await initServices();
 
   runApp(
-    GetMaterialApp(
+    NanoplanApp(),
+  );
+}
+
+class NanoplanApp extends StatelessWidget {
+  NanoplanApp({
+    super.key,
+  });
+
+  final AuthService authService = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "NanoPlan",
       theme: ThemeData(
@@ -34,8 +47,8 @@ void main() async {
       ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-    ),
-  );
+    );
+  }
 }
 
 Future initServices() async {

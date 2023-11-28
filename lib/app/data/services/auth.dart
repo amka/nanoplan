@@ -20,6 +20,8 @@ class AuthService extends GetxService {
 
   final status = Rx<AuthStatus>(AuthStatus.uninitialized);
 
+  RealtimeSubscription? subscription;
+
   // Getter methods
   String? get username => user.value?.name;
   String? get email => user.value?.email;
@@ -28,8 +30,20 @@ class AuthService extends GetxService {
   AuthService({required this.provider});
 
   Future<AuthService> init() async {
-    loadUser();
+    await loadUser();
+    if (user.value != null) {
+      subscription = provider.realtime.subscribe(['account']);
+
+      subscription?.stream.listen((event) {
+        log('AuthEvent: $event');
+      });
+    }
     return this;
+  }
+
+  @override
+  void onClose() {
+    subscription?.close();
   }
 
   Future<User?> loadUser() async {
