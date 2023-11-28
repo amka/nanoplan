@@ -28,6 +28,7 @@ class AuthService extends GetxService {
   AuthService({required this.provider});
 
   Future<AuthService> init() async {
+    loadUser();
     return this;
   }
 

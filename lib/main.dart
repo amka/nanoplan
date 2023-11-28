@@ -20,17 +20,17 @@ void main() async {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.amber,
+          seedColor: Colors.green,
         ),
-        textTheme: GoogleFonts.interTextTheme(),
+        textTheme: GoogleFonts.ibmPlexSansTextTheme(),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.amber,
+          seedColor: Colors.green,
           brightness: Brightness.dark,
         ),
-        textTheme: GoogleFonts.interTextTheme(),
+        textTheme: GoogleFonts.ibmPlexSansTextTheme(),
       ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
@@ -44,5 +44,5 @@ Future initServices() async {
   const apiUrl = String.fromEnvironment('API_URL');
   final provider = AppWriteProvider(apiUrl);
 
-  Get.put(AuthService(provider: provider));
+  await Get.putAsync(() => AuthService(provider: provider).init());
 }
