@@ -19,4 +19,9 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
+  Future signOut() async {
+    await authService.signOut();
+    Get.offAllNamed('/signin');
+  }
 }

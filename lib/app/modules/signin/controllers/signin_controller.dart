@@ -29,17 +29,20 @@ class SigninController extends GetxController {
     super.onClose();
   }
 
-  Future signIn() async {
+  Future<bool> signIn() async {
     final email = emailController.text;
     final password = passwdController.text;
     try {
       loading.value = true;
       await authService.signIn(email: email, password: password);
+      return true;
     } on AppwriteException catch (e) {
       Get.snackbar('Sign in failed', e.message ?? 'Unknown error');
+      return false;
     } catch (e) {
       log('Authentication failed: ${e.toString()}');
       Get.snackbar('Sign in failed', 'Unknown error');
+      return false;
     } finally {
       loading.value = false;
     }

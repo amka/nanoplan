@@ -9,7 +9,8 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "--dart-define=API_URL=https://cloud.appwrite.io/v1"
+                "--dart-define=API_URL=https://cloud.appwrite.io/v1",
+                "--dart-define=DATABASE_ID=656597796cec4f56bca5"
             ]
         },
         {

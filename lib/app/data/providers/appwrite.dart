@@ -9,6 +9,7 @@ class AppWriteProvider extends GetxService {
 
   late final Account account;
   late final Realtime realtime;
+  late final Databases databases;
 
   AppWriteProvider(String endpoint) {
     log('AppWrite initalizing with endpoint $endpoint');
@@ -19,5 +20,6 @@ class AppWriteProvider extends GetxService {
 
     account = Account(client);
     realtime = Realtime(client);
+    databases = Databases(client);
   }
 }

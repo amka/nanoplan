@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nanoplan/app/data/services/team.dart';
 
 import 'app/data/providers/appwrite.dart';
 import 'app/data/services/auth.dart';
@@ -55,7 +56,9 @@ Future initServices() async {
   await GetStorage.init();
 
   const apiUrl = String.fromEnvironment('API_URL');
+  const databaseId = String.fromEnvironment('DATABASE_ID');
   final provider = AppWriteProvider(apiUrl);
 
   await Get.putAsync(() => AuthService(provider: provider).init());
+  Get.put(TeamService(provider: provider, databaseId: databaseId));
 }

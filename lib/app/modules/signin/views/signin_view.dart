@@ -77,8 +77,9 @@ class SigninView extends GetView<SigninController> {
                             : () async {
                                 if (controller.formKey.currentState!
                                     .validate()) {
-                                  await controller.signIn();
-                                  Get.offAllNamed('/home');
+                                  if (await controller.signIn()) {
+                                    Get.offAllNamed('/home');
+                                  }
                                 }
                               },
                       ),
