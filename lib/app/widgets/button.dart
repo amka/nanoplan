@@ -19,7 +19,7 @@ class APButton extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(16),
         color: Theme.of(context).colorScheme.primary,
         child: Text(
           text,

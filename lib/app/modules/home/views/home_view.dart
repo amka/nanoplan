@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 
 import 'package:get/get.dart';
+import 'package:nanoplan/app/modules/scheduler/controllers/scheduler_controller.dart';
+import 'package:nanoplan/app/modules/scheduler/views/scheduler_view.dart';
 
 // import '../../../widgets/sidebar_column.dart';
 import '../controllers/home_controller.dart';
@@ -43,18 +45,21 @@ class HomeView extends GetView<HomeController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  controller.authService.user.value?.name ?? 'Anonymous',
-                                  style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.onBackground)
-                                ),
+                                    controller.authService.user.value?.name ??
+                                        'Anonymous',
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground)),
                                 Text(
-                                  controller.authService.user.value?.email ?? '',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                      color:
-                                          Theme.of(context).colorScheme.onBackground.withAlpha(150))
-                                ),
+                                    controller.authService.user.value?.email ??
+                                        '',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onBackground
+                                            .withAlpha(150))),
                               ],
                             ),
                           ),
@@ -85,14 +90,13 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        'Heading',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.onBackground),
-                      ),
-                    ],
+                  Expanded(
+                    child: GetBuilder(
+                      init: SchedulerController(),
+                      builder: (GetxController controller) {
+                        return const SchedulerView();
+                      },
+                    ),
                   ),
                   // ListView.builder(
                   //   itemBuilder: (BuildContext context, int index) {
