@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:nanoplan/app/data/services/storage/service.dart';
 
 import 'app/routes/app_pages.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await initServices();
+
   runApp(
     GetMaterialApp(
       title: "Application",
@@ -12,4 +17,10 @@ void main() {
       getPages: AppPages.routes,
     ),
   );
+}
+
+Future initServices() async {
+  await GetStorage.init();
+
+  await Get.putAsync(() => StorageService().init());
 }
