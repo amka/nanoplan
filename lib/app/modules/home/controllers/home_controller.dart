@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 
-import '../../../data/services/auth.dart';
-
 class HomeController extends GetxController {
-  final AuthService authService = Get.find();
+  //TODO: Implement HomeController
 
+  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -20,8 +19,5 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  Future signOut() async {
-    await authService.signOut();
-    Get.offAllNamed('/signin');
-  }
+  void increment() => count.value++;
 }
