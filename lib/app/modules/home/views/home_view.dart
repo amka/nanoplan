@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:nanoplan/app/modules/home/widgets/add_todo_dialog.dart';
 
 import '../../../core/utils/extensions.dart';
 import '../../../core/values/constants.dart';
@@ -82,7 +83,11 @@ class HomeView extends GetView<HomeController> {
             (context, data, rejectedData) {
           return Obx(
             () => FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const AddTodoDialog(),
+                transition: Transition.downToUp,
+                duration: const Duration(milliseconds: 120));
+              },
               backgroundColor: controller.deleting.value
                   ? Colors.red
                   : Theme.of(context).colorScheme.primary,
