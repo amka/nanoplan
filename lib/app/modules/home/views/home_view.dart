@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 
 import '../../../core/utils/extensions.dart';
@@ -42,9 +43,24 @@ class HomeView extends GetView<HomeController> {
                   physics: const ClampingScrollPhysics(),
                   children: [
                     ...controller.tasks
-                        .map((task) => TaskCard(
-                              task: task,
-                              onTap: () {},
+                        .map((task) => LongPressDraggable(
+                              data: task,
+                              onDragStarted: () =>
+                                  controller.setDeleteState(true),
+                              onDragCompleted: () =>
+                                  controller.setDeleteState(false),
+                              onDraggableCanceled: (_, __) =>
+                                  controller.setDeleteState(false),
+                              feedback: Opacity(
+                                  opacity: 0.8,
+                                  child: TaskCard(
+                                    task: task,
+                                    onTap: () {},
+                                  )),
+                              child: TaskCard(
+                                task: task,
+                                onTap: () {},
+                              ),
                             ))
                         .toList(),
                     AddCard(
@@ -60,6 +76,30 @@ class HomeView extends GetView<HomeController> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: DragTarget(
+        builder:
+            (context, data, rejectedData) {
+          return Obx(
+            () => FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: controller.deleting.value
+                  ? Colors.red
+                  : Theme.of(context).colorScheme.primary,
+              foregroundColor: Colors.white,
+              child: Icon(
+                controller.deleting.value
+                    ? TablerIcons.trash_x
+                    : TablerIcons.plus,
+              ),
+            ),
+          );
+        },
+        onAccept: (Task task) {
+            // TODO: Check for uncompleted todos before delete
+            controller.deleteTask(task);
+            EasyLoading.showSuccess('Task deleted');
+        },
       ),
     );
   }
