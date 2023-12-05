@@ -96,22 +96,26 @@ class HomeView extends GetView<HomeController> {
           builder: (context, data, rejectedData) {
             return Obx(
               () => Focus(
-                child: FloatingActionButton(
-                  onPressed: () {
-                    if (controller.tasks.isEmpty) {
-                      EasyLoading.showInfo('Create a task type');
-                      return;
-                    }
-                    onAddTodo();
-                  },
-                  backgroundColor: controller.deleting.value
-                      ? Colors.red
-                      : Theme.of(context).colorScheme.primary,
-                  foregroundColor: Colors.white,
-                  child: Icon(
-                    controller.deleting.value
-                        ? TablerIcons.trash_x
-                        : TablerIcons.plus,
+                child: Tooltip(
+                  message: 'Add new task (N)',
+                  waitDuration: Durations.short4,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      if (controller.tasks.isEmpty) {
+                        EasyLoading.showInfo('Create a task type');
+                        return;
+                      }
+                      onAddTodo();
+                    },
+                    backgroundColor: controller.deleting.value
+                        ? Colors.red
+                        : Theme.of(context).colorScheme.primary,
+                    foregroundColor: Colors.white,
+                    child: Icon(
+                      controller.deleting.value
+                          ? TablerIcons.trash_x
+                          : TablerIcons.plus,
+                    ),
                   ),
                 ),
               ),

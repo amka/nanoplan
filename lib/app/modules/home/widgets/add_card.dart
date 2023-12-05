@@ -14,20 +14,24 @@ class AddCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var squareWith = Get.width - 12.0.wp;
 
-    return Container(
-      width: squareWith / 2,
-      height: squareWith / 2,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(kDefaultBorderRadius),
-        color: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
-      ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(kDefaultBorderRadius),
-        onTap: onTap,
-        child: Center(
-          child: Icon(
-            TablerIcons.plus,
-            size: 10.0.wp,
+    return Tooltip(
+      message: 'Add new task type (Shift+N)',
+      waitDuration: Durations.short4,
+      child: Container(
+        width: squareWith / 2,
+        height: squareWith / 2,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(kDefaultBorderRadius),
+          color: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(kDefaultBorderRadius),
+          onTap: onTap,
+          child: Center(
+            child: Icon(
+              TablerIcons.plus,
+              size: 10.0.wp,
+            ),
           ),
         ),
       ),
