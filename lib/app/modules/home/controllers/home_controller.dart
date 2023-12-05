@@ -5,9 +5,7 @@ import '../../../data/models/task.dart';
 import '../../../data/services/storage/repository.dart';
 
 class HomeController extends GetxController {
-  TaskRepository taskRepository;
-
-  HomeController({required this.taskRepository});
+  TaskRepository taskRepository = Get.find();
 
   final tasks = <Task>[].obs;
   final formKey = GlobalKey<FormState>();

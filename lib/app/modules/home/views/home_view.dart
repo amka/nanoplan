@@ -3,10 +3,11 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 
+import '../../../modules/add_task/views/add_task_view.dart';
+import '../../../modules/add_task/controllers/add_task_controller.dart';
 import '../../../core/utils/extensions.dart';
 import '../../../core/values/constants.dart';
 import '../../../data/models/task.dart';
-import '../../../modules/home/widgets/add_todo_dialog.dart';
 import '../../../widgets/icons.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/add_card.dart';
@@ -83,7 +84,11 @@ class HomeView extends GetView<HomeController> {
           return Obx(
             () => FloatingActionButton(
               onPressed: () {
-                Get.to(() => const AddTodoDialog(),
+                Get.to(
+                    () => GetBuilder(
+                          init: AddTaskController(),
+                          builder: (context) => AddTaskView(),
+                        ),
                     transition: Transition.downToUp,
                     duration: const Duration(milliseconds: 120));
               },

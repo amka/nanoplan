@@ -3,6 +3,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:nanoplan/app/data/providers/task.dart';
+import 'package:nanoplan/app/data/services/storage/repository.dart';
 
 import 'app/data/services/storage/service.dart';
 import 'app/routes/app_pages.dart';
@@ -37,4 +39,7 @@ Future initServices() async {
   await GetStorage.init();
 
   await Get.putAsync(() => StorageService().init());
+
+  final taskProvider = TaskProvider();
+  Get.put(TaskRepository(taskProvider: taskProvider));
 }
