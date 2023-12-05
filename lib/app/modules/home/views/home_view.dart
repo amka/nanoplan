@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
-import 'package:nanoplan/app/modules/home/widgets/add_todo_dialog.dart';
 
 import '../../../core/utils/extensions.dart';
 import '../../../core/values/constants.dart';
 import '../../../data/models/task.dart';
+import '../../../modules/home/widgets/add_todo_dialog.dart';
 import '../../../widgets/icons.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/add_card.dart';
@@ -79,14 +79,13 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       floatingActionButton: DragTarget(
-        builder:
-            (context, data, rejectedData) {
+        builder: (context, data, rejectedData) {
           return Obx(
             () => FloatingActionButton(
               onPressed: () {
                 Get.to(() => const AddTodoDialog(),
-                transition: Transition.downToUp,
-                duration: const Duration(milliseconds: 120));
+                    transition: Transition.downToUp,
+                    duration: const Duration(milliseconds: 120));
               },
               backgroundColor: controller.deleting.value
                   ? Colors.red
@@ -101,9 +100,9 @@ class HomeView extends GetView<HomeController> {
           );
         },
         onAccept: (Task task) {
-            // TODO: Check for uncompleted todos before delete
-            controller.deleteTask(task);
-            EasyLoading.showSuccess('Task deleted');
+          // TODO: Check for uncompleted todos before delete
+          controller.deleteTask(task);
+          EasyLoading.showSuccess('Task deleted');
         },
       ),
     );
@@ -112,9 +111,12 @@ class HomeView extends GetView<HomeController> {
   void onAddCard(context) async {
     final icons = getIcons();
     await Get.defaultDialog(
-      titlePadding: EdgeInsets.symmetric(vertical: 5.0.wp),
+      titlePadding: EdgeInsets.only(top: 3.0.wp, bottom: 3.0.wp),
       radius: kDefaultBorderRadius,
       title: 'Task Type',
+      titleStyle: TextStyle(
+        color: Theme.of(context).colorScheme.onBackground,
+      ),
       content: Form(
         key: controller.formKey,
         child: Column(
@@ -129,6 +131,10 @@ class HomeView extends GetView<HomeController> {
                     borderRadius: BorderRadius.circular(kDefaultBorderRadius),
                     borderSide: BorderSide.none,
                   ),
+                  isDense: true,
+                ),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onBackground,
                 ),
                 autofocus: true,
                 validator: (value) {
