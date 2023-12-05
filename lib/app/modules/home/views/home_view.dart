@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -7,13 +5,13 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import 'package:keymap/keymap.dart';
 
-import '../../../modules/details/views/details_view.dart';
-import '../../../modules/details/controllers/details_controller.dart';
-import '../../../modules/add_task/views/add_task_view.dart';
-import '../../../modules/add_task/controllers/add_task_controller.dart';
 import '../../../core/utils/extensions.dart';
 import '../../../core/values/constants.dart';
 import '../../../data/models/task.dart';
+import '../../../modules/add_task/controllers/add_task_controller.dart';
+import '../../../modules/add_task/views/add_task_view.dart';
+import '../../../modules/details/controllers/details_controller.dart';
+import '../../../modules/details/views/details_view.dart';
 import '../../../widgets/icons.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/add_card.dart';
@@ -68,11 +66,13 @@ class HomeView extends GetView<HomeController> {
                                     controller.setDeleteState(false),
                                 onDraggableCanceled: (_, __) =>
                                     controller.setDeleteState(false),
-                                feedback: Opacity(
-                                    opacity: 0.8,
-                                    child: TaskCard(
-                                      task: task,
-                                      onTap: () {},
+                                feedback: Transform.rotate(
+                                    angle: -0.07,
+                                    child: Opacity(
+                                      opacity: 0.92,
+                                      child: TaskCard(
+                                        task: task,
+                                      ),
                                     )),
                                 child: TaskCard(
                                     task: task, onTap: () => onTaskTap(task)),
