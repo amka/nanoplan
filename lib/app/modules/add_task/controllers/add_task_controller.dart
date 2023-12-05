@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../../../data/services/storage/repository.dart';
 import '../../../data/models/task.dart';
@@ -23,11 +22,6 @@ class AddTaskController extends GetxController {
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
     editController.dispose();
     super.onClose();
@@ -43,7 +37,7 @@ class AddTaskController extends GetxController {
       return false;
     }
 
-    todos.insert(0, todo);
+    todos.add(todo);
     final newTask = task.copyWith(todos: todos);
     final oldIndex = tasks.indexOf(task);
     tasks[oldIndex] = newTask;

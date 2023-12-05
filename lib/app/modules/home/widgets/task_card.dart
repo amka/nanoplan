@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +37,16 @@ class TaskCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(icon, color: color, size: 24.0.sp),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(icon, color: color, size: 24.0.sp),
+                    CircularProgressIndicator(
+                      color: HexColor.fromHex(task.color),
+                      value: Random().nextInt(100) / 100,
+                    ),
+                  ],
+                ),
                 const Spacer(),
                 Text(
                   task.title,

@@ -84,6 +84,10 @@ class HomeView extends GetView<HomeController> {
           return Obx(
             () => FloatingActionButton(
               onPressed: () {
+                if (controller.tasks.isEmpty) {
+                  EasyLoading.showInfo('Create a task type');
+                  return;
+                }
                 Get.to(
                     () => GetBuilder(
                           init: AddTaskController(),
