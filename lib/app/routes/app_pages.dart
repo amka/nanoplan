@@ -20,7 +20,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADD_TASK,
-      page: () => const AddTaskView(),
+      page: () => AddTaskView(),
       binding: AddTaskBinding(),
     ),
   ];

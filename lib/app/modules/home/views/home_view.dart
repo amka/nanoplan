@@ -87,7 +87,9 @@ class HomeView extends GetView<HomeController> {
                 Get.to(
                     () => GetBuilder(
                           init: AddTaskController(),
-                          builder: (context) => AddTaskView(),
+                          builder: (context) => AddTaskView(
+                            tasks: controller.tasks,
+                          ),
                         ),
                     transition: Transition.downToUp,
                     duration: const Duration(milliseconds: 120));

@@ -52,7 +52,10 @@ class TaskCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 10.0.sp,
-                    color: Theme.of(context).colorScheme.onBackground.withAlpha(145),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onBackground
+                        .withAlpha(145),
                   ),
                 ),
               ],
