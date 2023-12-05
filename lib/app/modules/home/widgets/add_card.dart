@@ -14,22 +14,20 @@ class AddCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var squareWith = Get.width - 12.0.wp;
 
-    return SizedBox(
+    return Container(
       width: squareWith / 2,
       height: squareWith / 2,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(kDefaultBorderRadius),
-        ),
-        elevation: 0.5,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(kDefaultBorderRadius),
-          onTap: onTap,
-          child: Center(
-            child: Icon(
-              TablerIcons.plus,
-              size: 10.0.wp,
-            ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(kDefaultBorderRadius),
+        color: Theme.of(context).colorScheme.secondary.withOpacity(0.04),
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(kDefaultBorderRadius),
+        onTap: onTap,
+        child: Center(
+          child: Icon(
+            TablerIcons.plus,
+            size: 10.0.wp,
           ),
         ),
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:nanoplan/app/modules/home/widgets/task_card.dart';
 
 import '../../../core/utils/extensions.dart';
 import '../../../core/values/constants.dart';
@@ -9,6 +8,7 @@ import '../../../data/models/task.dart';
 import '../../../widgets/icons.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/add_card.dart';
+import '../widgets/task_card.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
