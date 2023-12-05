@@ -108,10 +108,8 @@ class AddTaskView extends GetView<AddTaskController> {
                           ),
                           child: Row(
                             children: [
-                              Icon(
-                                IconData(task.icon,
-                                    fontFamily: 'tabler-icons',
-                                    fontPackage: "flutter_tabler_icons"),
+                              CodePointIcon.withColor(
+                                codePoint: task.icon,
                                 color: HexColor.fromHex(task.color),
                               ),
                               SizedBox(width: 2.0.wp),

@@ -30,3 +30,16 @@ extension HexColor on Color {
         '${blue.toRadixString(16).padLeft(2, '0')}';
   }
 }
+
+extension CodePointIcon on Icon {
+  static Icon withColor({required int codePoint, Color? color}) {
+    return Icon(
+      IconData(
+        codePoint,
+        fontFamily: 'tabler-icons',
+        fontPackage: "flutter_tabler_icons",
+      ),
+      color: color,
+    );
+  }
+}

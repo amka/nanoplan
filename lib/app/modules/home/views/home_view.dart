@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:nanoplan/app/modules/details/controllers/details_controller.dart';
+import 'package:nanoplan/app/modules/details/views/details_view.dart';
+import 'package:nanoplan/app/routes/app_pages.dart';
 
 import '../../../modules/add_task/views/add_task_view.dart';
 import '../../../modules/add_task/controllers/add_task_controller.dart';
@@ -60,9 +63,7 @@ class HomeView extends GetView<HomeController> {
                                     onTap: () {},
                                   )),
                               child: TaskCard(
-                                task: task,
-                                onTap: () {},
-                              ),
+                                  task: task, onTap: () => onTaskTap(task)),
                             ))
                         .toList(),
                     AddCard(
@@ -223,6 +224,15 @@ class HomeView extends GetView<HomeController> {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  onTaskTap(Task task) {
+    Get.to(
+      () => GetBuilder(
+        init: DetailsController(),
+        builder: (_) => DetailsView(task: task),
       ),
     );
   }
