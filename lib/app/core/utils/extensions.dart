@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../values/colors.dart' as colors;
+
 extension PercentSized on double {
   double get hp => (Get.height * this / 100);
 
@@ -13,6 +15,7 @@ extension ResponsiveText on double {
 
 extension HexColor on Color {
   static Color fromHex(String hexString) {
+    if (hexString.length < 6) return colors.purple;
     final buffer = StringBuffer();
     if (hexString.length == 6 || hexString.length == 7) buffer.write(hexString);
     buffer.write(hexString.replaceFirst('#', ''));
