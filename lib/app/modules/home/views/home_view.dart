@@ -1,11 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
-import 'package:nanoplan/app/modules/details/controllers/details_controller.dart';
-import 'package:nanoplan/app/modules/details/views/details_view.dart';
-import 'package:nanoplan/app/routes/app_pages.dart';
+import 'package:keymap/keymap.dart';
 
+import '../../../modules/details/views/details_view.dart';
+import '../../../modules/details/controllers/details_controller.dart';
 import '../../../modules/add_task/views/add_task_view.dart';
 import '../../../modules/add_task/controllers/add_task_controller.dart';
 import '../../../core/utils/extensions.dart';
@@ -21,103 +24,119 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(4.0.wp),
-              child: Text(
-                'My Lists',
-                style: TextStyle(
-                  fontSize: 24.0.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onBackground,
+    return KeyboardWidget(
+      bindings: [
+        KeyAction(LogicalKeyboardKey.keyN, 'Add task type', () {
+          onAddCard(context);
+        }, isShiftPressed: true),
+        KeyAction(LogicalKeyboardKey.keyN, 'Add todo', () {
+          onAddTodo();
+        }),
+      ],
+      child: Scaffold(
+        body: SafeArea(
+          child: ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(4.0.wp),
+                child: Text(
+                  'My Lists',
+                  style: TextStyle(
+                    fontSize: 24.0.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(0.0.wp),
-              child: Obx(
-                () => GridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  crossAxisSpacing: 2.0.wp,
-                  mainAxisSpacing: 2.0.wp,
-                  padding: EdgeInsets.symmetric(horizontal: 3.0.wp),
-                  physics: const ClampingScrollPhysics(),
-                  children: [
-                    ...controller.tasks
-                        .map((task) => LongPressDraggable(
-                              data: task,
-                              onDragStarted: () =>
-                                  controller.setDeleteState(true),
-                              onDragCompleted: () =>
-                                  controller.setDeleteState(false),
-                              onDraggableCanceled: (_, __) =>
-                                  controller.setDeleteState(false),
-                              feedback: Opacity(
-                                  opacity: 0.8,
-                                  child: TaskCard(
-                                    task: task,
-                                    onTap: () {},
-                                  )),
-                              child: TaskCard(
-                                  task: task, onTap: () => onTaskTap(task)),
-                            ))
-                        .toList(),
-                    AddCard(
-                      onTap: () {
-                        onAddCard(context);
-                        controller.editController.clear();
-                        controller.chipIndex.value = 0;
-                      },
-                    )
-                  ],
+              Padding(
+                padding: EdgeInsets.all(0.0.wp),
+                child: Obx(
+                  () => GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    crossAxisSpacing: 2.0.wp,
+                    mainAxisSpacing: 2.0.wp,
+                    padding: EdgeInsets.symmetric(horizontal: 3.0.wp),
+                    physics: const ClampingScrollPhysics(),
+                    children: [
+                      ...controller.tasks
+                          .map((task) => LongPressDraggable(
+                                data: task,
+                                onDragStarted: () =>
+                                    controller.setDeleteState(true),
+                                onDragCompleted: () =>
+                                    controller.setDeleteState(false),
+                                onDraggableCanceled: (_, __) =>
+                                    controller.setDeleteState(false),
+                                feedback: Opacity(
+                                    opacity: 0.8,
+                                    child: TaskCard(
+                                      task: task,
+                                      onTap: () {},
+                                    )),
+                                child: TaskCard(
+                                    task: task, onTap: () => onTaskTap(task)),
+                              ))
+                          .toList(),
+                      AddCard(
+                        onTap: () {
+                          onAddCard(context);
+                          controller.editController.clear();
+                          controller.chipIndex.value = 0;
+                        },
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
+        ),
+        floatingActionButton: DragTarget(
+          builder: (context, data, rejectedData) {
+            return Obx(
+              () => Focus(
+                child: FloatingActionButton(
+                  onPressed: () {
+                    if (controller.tasks.isEmpty) {
+                      EasyLoading.showInfo('Create a task type');
+                      return;
+                    }
+                    onAddTodo();
+                  },
+                  backgroundColor: controller.deleting.value
+                      ? Colors.red
+                      : Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
+                  child: Icon(
+                    controller.deleting.value
+                        ? TablerIcons.trash_x
+                        : TablerIcons.plus,
+                  ),
+                ),
+              ),
+            );
+          },
+          onAccept: (Task task) {
+            // TODO: Check for uncompleted todos before delete
+            controller.deleteTask(task);
+            EasyLoading.showSuccess('Task deleted');
+          },
         ),
       ),
-      floatingActionButton: DragTarget(
-        builder: (context, data, rejectedData) {
-          return Obx(
-            () => FloatingActionButton(
-              onPressed: () {
-                if (controller.tasks.isEmpty) {
-                  EasyLoading.showInfo('Create a task type');
-                  return;
-                }
-                Get.to(
-                    () => GetBuilder(
-                          init: AddTaskController(),
-                          builder: (context) => AddTaskView(
-                            tasks: controller.tasks,
-                          ),
-                        ),
-                    transition: Transition.downToUp,
-                    duration: const Duration(milliseconds: 120));
-              },
-              backgroundColor: controller.deleting.value
-                  ? Colors.red
-                  : Theme.of(context).colorScheme.primary,
-              foregroundColor: Colors.white,
-              child: Icon(
-                controller.deleting.value
-                    ? TablerIcons.trash_x
-                    : TablerIcons.plus,
+    );
+  }
+
+  void onAddTodo() {
+    Get.to(
+        () => GetBuilder(
+              init: AddTaskController(),
+              builder: (context) => AddTaskView(
+                tasks: controller.tasks,
               ),
             ),
-          );
-        },
-        onAccept: (Task task) {
-          // TODO: Check for uncompleted todos before delete
-          controller.deleteTask(task);
-          EasyLoading.showSuccess('Task deleted');
-        },
-      ),
-    );
+        transition: Transition.downToUp,
+        duration: const Duration(milliseconds: 120));
   }
 
   void onAddCard(context) async {

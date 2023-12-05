@@ -49,6 +49,11 @@ class DetailsView extends GetView<DetailsController> {
                 ),
               ],
             ),
+            ...task.todos!
+                .map((e) => ListTile(
+                      title: Text(e),
+                    ))
+                .toList()
           ],
         ),
       ),
