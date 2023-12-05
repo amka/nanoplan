@@ -32,7 +32,12 @@ class AddTaskController extends GetxController {
   }
 
   bool addTodo({required Task task, required String todo}) {
-    var todos = task.todos ?? [];
+    var todos = [];
+
+    if (task.todos != null) {
+      todos.assignAll(task.todos!.toList());
+    }
+
     if (todos.contains(todo)) {
       return false;
     }
