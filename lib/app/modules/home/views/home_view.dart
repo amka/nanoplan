@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 
-
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/project_card.dart';
 
@@ -14,7 +14,6 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Projects'.tr),
-        centerTitle: false,
       ),
       body: SafeArea(
         child: Obx(
@@ -35,7 +34,9 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(Routes.ADD_PROJECT);
+        },
         child: const Icon(TablerIcons.plus),
       ),
     );

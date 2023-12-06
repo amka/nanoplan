@@ -29,4 +29,10 @@ class StorageService extends GetxService {
   Future<List<T>> getAll<T>() async {
     return await _isar.collection<T>().where().findAll();
   }
+
+  Future<int> write<T>(T item) async {
+    return await _isar.writeTxn(
+      () async => await _isar.collection<T>().put(item),
+    );
+  }
 }

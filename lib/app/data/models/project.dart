@@ -21,7 +21,7 @@ class Project {
     required this.title,
     this.description,
     this.color = '#61AFEF',
-    required this.icon,
+    this.icon,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) {
