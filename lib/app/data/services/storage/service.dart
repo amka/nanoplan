@@ -1,22 +1,32 @@
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'dart:io';
 
-import '../../../core/utils/keys.dart';
+import 'package:get/get.dart';
+import 'package:isar/isar.dart';
+import 'package:nanoplan/app/core/extensions.dart';
+import 'package:path_provider/path_provider.dart';
 
 class StorageService extends GetxService {
-  late final GetStorage _box;
+  late final Isar _isar;
 
-  Future<StorageService> init() async {
-    _box = GetStorage();
-    await _box.writeIfNull(taskKey, []);
+  late final Directory dir;
+
+  Future init({
+    required List<CollectionSchema<dynamic>> schemes,
+    Directory? dir,
+  }) async {
+    this.dir = dir ?? await getApplicationDocumentsDirectory();
+    _isar = await Isar.open(
+      schemes,
+      directory: this.dir.path,
+    );
     return this;
   }
 
-  T read<T>(String key) {
-    return _box.read(key);
+  Future<T?> get<T>(String id) async {
+    return await _isar.collection<T>().get(id.fastHash());
   }
 
-  void write(String key, dynamic value) async {
-    await _box.write(key, value);
+  Future<List<T>> getAll<T>() async {
+    return await _isar.collection<T>().where().findAll();
   }
 }

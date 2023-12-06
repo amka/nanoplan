@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:nanoplan/app/data/providers/task.dart';
-import 'package:nanoplan/app/data/services/storage/repository.dart';
+import 'package:nanoplan/app/data/models/project.dart';
+import 'package:nanoplan/app/data/services/project/service.dart';
 
 import 'app/data/services/storage/service.dart';
 import 'app/routes/app_pages.dart';
@@ -20,13 +19,13 @@ void main() async {
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,
-        textTheme: GoogleFonts.notoSansTextTheme(),
+        textTheme: GoogleFonts.interTextTheme(),
       ),
       darkTheme: ThemeData(
         colorSchemeSeed: Colors.blue,
         brightness: Brightness.dark,
         useMaterial3: true,
-        textTheme: GoogleFonts.notoSansTextTheme(),
+        textTheme: GoogleFonts.interTextTheme(),
       ),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
@@ -36,10 +35,10 @@ void main() async {
 }
 
 Future initServices() async {
-  await GetStorage.init();
+  final storage = await StorageService().init(schemes: [
+    ProjectSchema,
+  ]);
 
-  await Get.putAsync(() => StorageService().init());
-
-  final taskProvider = TaskProvider();
-  Get.put(TaskRepository(taskProvider: taskProvider));
+  Get.put(storage);
+  Get.put(ProjectService(storage: storage));
 }
