@@ -4,13 +4,15 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
   static const HOME = _Paths.HOME;
-  static const ADD_TASK = _Paths.ADD_TASK;
-  static const DETAILS = _Paths.DETAILS;
+  static const SPLASH = _Paths.SPLASH;
+  static const SIGNIN = _Paths.SIGNIN;
+  static const SIGNUP = _Paths.SIGNUP;
 }
 
 abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
-  static const ADD_TASK = '/add-task';
-  static const DETAILS = '/details';
+  static const SPLASH = '/splash';
+  static const SIGNIN = '/signin';
+  static const SIGNUP = '/signup';
 }
