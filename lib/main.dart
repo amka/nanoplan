@@ -3,7 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'app/data/appwrite_provider.dart';
+import 'app/data/providers/appwrite.dart';
 import 'app/data/services/auth.dart';
 import 'app/routes/app_pages.dart';
 import 'app/themes/dark.dart';

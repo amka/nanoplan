@@ -2,7 +2,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:get/get.dart';
 
-import '../appwrite_provider.dart';
+import '../providers/appwrite.dart';
 
 enum AuthStatus {
   uninitialized,
