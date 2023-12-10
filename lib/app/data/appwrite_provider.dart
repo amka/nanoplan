@@ -1,5 +1,4 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:get/get.dart';
 
 class AppwriteProvider {
   late final Client _client;

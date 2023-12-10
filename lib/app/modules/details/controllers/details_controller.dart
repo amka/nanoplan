@@ -8,18 +8,6 @@ class DetailsController extends GetxController {
 
   final task = Rx<Task?>(null);
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

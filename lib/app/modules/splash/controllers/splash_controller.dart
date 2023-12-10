@@ -9,10 +9,6 @@ import '../../../routes/app_pages.dart';
 class SplashController extends GetxController {
   final AuthService authService = Get.find();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {
@@ -28,10 +24,6 @@ class SplashController extends GetxController {
     });
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   Future loadUser() async {
     if (authService.status.value == AuthStatus.uninitialized) {
